@@ -63,6 +63,14 @@ class CheckoutPage {
             document.getElementById('checkout-firstname').value = user.firstName;
             document.getElementById('checkout-lastname').value = user.lastName;
             document.getElementById('checkout-email').value = user.email;
+            
+            if (user.address) {
+                document.getElementById('checkout-cep').value = user.address.cep;
+                document.getElementById('checkout-address').value = user.address.street;
+                document.getElementById('checkout-city').value = user.address.city;
+                document.getElementById('checkout-state').value = user.address.state;
+                document.getElementById('checkout-complement').value = user.address.complement || '';
+            }
         }
     }
 

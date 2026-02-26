@@ -56,6 +56,209 @@
         </aside>
 
         <section class="card" style="padding: var(--spacing-lg)">
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              border-bottom: 1px solid var(--color-border);
+              margin-bottom: var(--spacing-md);
+              padding-bottom: var(--spacing-sm);
+            "
+          >
+            <h3 data-testid="profile-address-title" style="margin: 0">
+              Meu Endereço
+            </h3>
+            <button
+              id="profile-address-edit-btn"
+              class="btn btn--outline"
+              style="
+                padding: var(--spacing-xs) var(--spacing-sm);
+                font-size: var(--font-size-sm);
+              "
+              data-testid="profile-address-edit-btn"
+            >
+              Editar
+            </button>
+          </div>
+
+          <div id="profile-address-view" data-testid="profile-address-view">
+            <p
+              data-testid="profile-address-empty"
+              style="color: var(--color-text-light); display: none"
+            >
+              Você ainda não cadastrou um endereço.
+            </p>
+            <div
+              id="profile-address-details"
+              style="
+                display: flex;
+                flex-direction: column;
+                gap: var(--spacing-xs);
+              "
+            >
+              <p>
+                <strong data-testid="profile-address-cep-label">CEP:</strong>
+                <span
+                  id="view-address-cep"
+                  data-testid="view-address-cep"
+                ></span>
+              </p>
+              <p>
+                <strong data-testid="profile-address-street-label">Rua:</strong>
+                <span
+                  id="view-address-street"
+                  data-testid="view-address-street"
+                ></span>
+              </p>
+              <p>
+                <strong data-testid="profile-address-city-state-label"
+                  >Cidade/Estado:</strong
+                >
+                <span
+                  id="view-address-city-state"
+                  data-testid="view-address-city-state"
+                ></span>
+              </p>
+              <p id="view-address-complement-wrapper">
+                <strong data-testid="profile-address-complement-label"
+                  >Complemento:</strong
+                >
+                <span
+                  id="view-address-complement"
+                  data-testid="view-address-complement"
+                ></span>
+              </p>
+            </div>
+          </div>
+
+          <form
+            id="profile-address-form"
+            style="display: none"
+            data-testid="profile-address-form"
+          >
+            <div
+              class="grid grid--cols-2"
+              style="margin-bottom: var(--spacing-sm)"
+            >
+              <div class="form-group">
+                <label
+                  for="address-cep"
+                  class="form-label"
+                  data-testid="address-cep-label"
+                  >CEP</label
+                >
+                <input
+                  type="text"
+                  id="address-cep"
+                  class="form-control"
+                  data-testid="address-cep"
+                  placeholder="41820-021"
+                  maxlength="9"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label
+                  for="address-street"
+                  class="form-label"
+                  data-testid="address-street-label"
+                  >Rua</label
+                >
+                <input
+                  type="text"
+                  id="address-street"
+                  class="form-control"
+                  data-testid="address-street"
+                  placeholder="Avenida Tancredo Neves"
+                  required
+                />
+              </div>
+            </div>
+            <div
+              class="grid grid--cols-2"
+              style="margin-bottom: var(--spacing-sm)"
+            >
+              <div class="form-group">
+                <label
+                  for="address-city"
+                  class="form-label"
+                  data-testid="address-city-label"
+                  >Cidade</label
+                >
+                <input
+                  type="text"
+                  id="address-city"
+                  class="form-control"
+                  data-testid="address-city"
+                  placeholder="Salvador"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label
+                  for="address-state"
+                  class="form-label"
+                  data-testid="address-state-label"
+                  >Estado</label
+                >
+                <input
+                  type="text"
+                  id="address-state"
+                  class="form-control"
+                  data-testid="address-state"
+                  maxlength="2"
+                  placeholder="BA"
+                  required
+                />
+              </div>
+            </div>
+            <div class="form-group" style="margin-bottom: var(--spacing-md)">
+              <label
+                for="address-complement"
+                class="form-label"
+                data-testid="address-complement-label"
+                >Complemento (opcional)</label
+              >
+              <input
+                type="text"
+                id="address-complement"
+                class="form-control"
+                data-testid="address-complement"
+                placeholder="Edifício Empresarial Bahia Prime, Sala 1203, Torre Business, 12º andar"
+              />
+            </div>
+            <div
+              style="
+                display: flex;
+                gap: var(--spacing-sm);
+                justify-content: flex-end;
+              "
+            >
+              <button
+                type="button"
+                id="profile-address-cancel-btn"
+                class="btn btn--outline"
+                data-testid="profile-address-cancel-btn"
+              >
+                Cancelar
+              </button>
+              <button
+                type="submit"
+                id="profile-address-save-btn"
+                class="btn btn--primary"
+                data-testid="profile-address-save-btn"
+              >
+                Salvar
+              </button>
+            </div>
+          </form>
+        </section>
+
+        <section
+          class="card"
+          style="padding: var(--spacing-lg); grid-column: 1 / -1"
+        >
           <h3
             data-testid="profile-history-title"
             style="

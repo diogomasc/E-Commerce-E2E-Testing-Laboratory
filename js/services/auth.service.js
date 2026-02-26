@@ -29,13 +29,32 @@ class AuthService {
         const newUser = {
             ...userData,
             id: `usr-${Date.now()}`,
-            orders: []
+            orders: [],
+            address: null
         };
 
         users.push(newUser);
         storage.set(CONSTANTS.USERS_KEY, users);
         
         return { success: true };
+    }
+
+    saveAddress(email, addressData) {
+        const users = storage.get(CONSTANTS.USERS_KEY) || [];
+        const userIndex = users.findIndex(u => u.email === email);
+        
+        if (userIndex !== -1) {
+            users[userIndex].address = addressData;
+            storage.set(CONSTANTS.USERS_KEY, users);
+            
+            const currentUser = this.getCurrentUser();
+            if (currentUser && currentUser.email === email) {
+                storage.set(CONSTANTS.CURRENT_USER_KEY, users[userIndex]);
+            }
+            
+            return { success: true };
+        }
+        return { success: false, message: "Usuário não encontrado." };
     }
 
     logout() {
