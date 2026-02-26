@@ -98,3 +98,8 @@
   background-color: var(--color-primary);
   color: white;
 }
+
+.form-group:has([required]) .form-label::after {
+  content: " *";
+  color: var(--color-error);
+}
