@@ -78,3 +78,20 @@ Se o propósito desta plataforma é a montagem de seu repositório de testes com
 - Faça testes para forçarem os cupons de Descontos pre-cadastrados, validando se são responsivos às variações de tamanho de carrinho (Ex: DESCONTO10 requere X compras e não funciona sozinho).
 
 Aproveite este projeto como seu playground seguro!
+
+### Prints 
+
+<img width="1920" height="1410" alt="image" src="https://github.com/user-attachments/assets/3ad299e5-c0e7-42bb-8120-5743472a0729" />
+<img width="1920" height="1396" alt="image" src="https://github.com/user-attachments/assets/b672d0b8-ccd5-4e8a-91d1-941b0724362e" />
+<img width="1920" height="932" alt="image" src="https://github.com/user-attachments/assets/120bb974-0fc8-4509-94cc-cf2af7a89a26" />
+<img width="1920" height="932" alt="image" src="https://github.com/user-attachments/assets/b61909ad-74f5-4543-9a0b-e3e7a36a0ef4" />
+<img width="1920" height="1021" alt="image" src="https://github.com/user-attachments/assets/09ca0800-553f-47a8-aa49-e438c109131a" />
+<img width="1920" height="1481" alt="image" src="https://github.com/user-attachments/assets/4972912e-98fa-47c6-b629-79951793e2e4" />
+<img width="1920" height="1026" alt="image" src="https://github.com/user-attachments/assets/9656aa25-3c95-450a-9242-c4f284dda086" />
+<img width="1920" height="1856" alt="image" src="https://github.com/user-attachments/assets/e672792a-a9a8-45e8-a5b6-682129b12599" />
+<img width="1920" height="1340" alt="image" src="https://github.com/user-attachments/assets/4b5a0b59-158f-4c59-8b8e-65d0827348f9" />
+<img width="1920" height="1087" alt="image" src="https://github.com/user-attachments/assets/39a5ddff-51a0-46c2-9d37-d9dd79182743" />
+<img width="1920" height="932" alt="image" src="https://github.com/user-attachments/assets/2a1cafa8-236e-4d7e-b0f4-3ffa3c0495e6" />
+
+
+
