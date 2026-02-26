@@ -76,10 +76,12 @@ Se o propósito desta plataforma é a montagem de seu repositório de testes com
 - Existe uma variação massiva nos tamanhos de limitações físicas e máscaras da UX do Checkout (`CPF` converte ponto a ponto e te poda, número de cartão idem).
 - Na página de **Registrar**, tente provocar submissões nulas e teste o seu framework avaliando cores e visibilidades de classes `.form-error` injetadas dinamicamente.
 - Faça testes para forçarem os cupons de Descontos pre-cadastrados, validando se são responsivos às variações de tamanho de carrinho (Ex: DESCONTO10 requere X compras e não funciona sozinho).
+- **Bug Intencional (CPF):** A validação base de CPF permite o preenchimento e aceitação de um CPF formatado com números iguais (ex: `111.111.111-11`), ideal para testes de falsos-positivos na validação.
+- **Bug Intencional (Cálculo de Desconto):** Ao aplicar um cupom de desconto no carrinho, a interface exibe que o desconto foi aplicado na UI, mas o valor deduzido é ignorado no gatilho de "Total Pago" sendo cobrado o valor cheio do checkout.
 
 Aproveite este projeto como seu playground seguro!
 
-### Prints 
+### Prints
 
 <img width="1920" height="1410" alt="image" src="https://github.com/user-attachments/assets/3ad299e5-c0e7-42bb-8120-5743472a0729" />
 <img width="1920" height="1396" alt="image" src="https://github.com/user-attachments/assets/b672d0b8-ccd5-4e8a-91d1-941b0724362e" />
@@ -93,6 +95,3 @@ Aproveite este projeto como seu playground seguro!
 <img width="1920" height="1340" alt="image" src="https://github.com/user-attachments/assets/4b5a0b59-158f-4c59-8b8e-65d0827348f9" />
 <img width="1920" height="1087" alt="image" src="https://github.com/user-attachments/assets/39a5ddff-51a0-46c2-9d37-d9dd79182743" />
 <img width="1920" height="932" alt="image" src="https://github.com/user-attachments/assets/2a1cafa8-236e-4d7e-b0f4-3ffa3c0495e6" />
-
-
-
