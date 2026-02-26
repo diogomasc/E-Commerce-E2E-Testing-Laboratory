@@ -47,6 +47,15 @@ class SuccessPage {
 
         document.getElementById('success-total').textContent = format.currency(order.total);
 
+        if (order.observation) {
+            const obsContainer = document.getElementById('success-observation-container');
+            const obsText = document.getElementById('success-observation');
+            if (obsContainer && obsText) {
+                obsText.textContent = order.observation;
+                obsContainer.style.display = 'block';
+            }
+        }
+
         const user = authService.getCurrentUser();
         if (!user) {
             const warningHtml = `

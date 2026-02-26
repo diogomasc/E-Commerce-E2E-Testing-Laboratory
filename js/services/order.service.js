@@ -29,6 +29,7 @@ class OrderService {
             discount,
             total,
             coupon: cart.coupon,
+            observation: checkoutData.observation,
             shippingAddress: {
                 cep: checkoutData.cep,
                 address: checkoutData.address,

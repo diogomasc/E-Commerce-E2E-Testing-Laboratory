@@ -161,11 +161,13 @@ class CheckoutPage {
             complement: document.getElementById('checkout-complement').value,
             city: document.getElementById('checkout-city').value,
             state: document.getElementById('checkout-state').value,
+            observation: sessionStorage.getItem('e2e_cart_obs') || ''
         };
 
         const result = orderService.createOrder(checkoutData);
 
         if (result.success) {
+            sessionStorage.removeItem('e2e_cart_obs');
             window.location.href = `success.html?orderId=${result.orderId}`;
         } else {
             alert('Erro ao processar pedido: ' + result.message);

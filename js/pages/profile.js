@@ -40,6 +40,7 @@ class ProfilePage {
                 <div style="font-size: var(--font-size-sm); color: var(--color-text-light); margin-bottom: var(--spacing-sm);" data-testid="profile-order-summary-${index}">
                     ${order.items.map(i => `${i.quantity}x ${i.title}`).join(', ')}
                 </div>
+                ${order.observation ? `<div style="font-size: var(--font-size-sm); background-color: #f9f9f9; padding: var(--spacing-xs) var(--spacing-sm); border: 1px solid var(--color-border); border-radius: var(--border-radius-sm); margin-bottom: var(--spacing-sm);" data-testid="profile-order-observation-${index}"><strong>Observação:</strong> ${order.observation}</div>` : ''}
                 <div style="font-weight: bold; color: var(--color-success);" data-testid="profile-order-total-${index}">
                     Total Pago: ${format.currency(order.total)}
                 </div>
