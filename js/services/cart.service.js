@@ -102,7 +102,8 @@ class CartService {
     getTotal(cart = this.getCart()) {
         const subtotal = this.getSubtotal(cart);
         const discount = cart.coupon ? cart.coupon.discount : 0;
-        return Math.max(0, subtotal - discount);
+        // BUG INTENCIONAL PARA E2E: O desconto nao eh subtraido do total
+        return Math.max(0, subtotal);
     }
 
     getDiscount(cart = this.getCart()) {
