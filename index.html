@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E-commerce E2E - Home</title>
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/pages/home.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="header" id="main-header" data-testid="main-header">
+      <!-- Injetado pelo header.js -->
+    </header>
+
+    <main id="main-content" data-testid="main-content">
+      <section class="hero">
+        <h1 data-testid="home-title">Bem-vindo à Loja E2E</h1>
+        <p data-testid="home-subtitle">
+          O seu ambiente de testes determinístico e puramente Vanilla JS.
+        </p>
+        <a
+          href="catalog.html"
+          class="btn btn--primary"
+          data-testid="buy-now-button"
+          >Ver Catálogo</a
+        >
+      </section>
+
+      <section class="featured" style="margin-top: var(--spacing-xxl)">
+        <h2
+          data-testid="featured-title"
+          style="margin-bottom: var(--spacing-md)"
+        >
+          Produtos em Destaque
+        </h2>
+        <div
+          id="featured-products-grid"
+          class="grid grid--cols-4"
+          data-testid="featured-products-grid"
+        >
+          <!-- Injetado pelo index.js -->
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer" id="main-footer" data-testid="main-footer">
+      <!-- Injetado pelo footer.js -->
+    </footer>
+
+    <!-- Utilitários e Serviços -->
+    <script type="module" src="js/utils/storage.js"></script>
+    <script type="module" src="js/components/header.js"></script>
+    <script type="module" src="js/components/footer.js"></script>
+    <script type="module" src="js/pages/index.js"></script>
+  </body>
+</html>

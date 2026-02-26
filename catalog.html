@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E-commerce E2E - Catálogo</title>
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <style>
+      .catalog-layout {
+        display: flex;
+        gap: var(--spacing-lg);
+      }
+      .catalog-sidebar {
+        width: 250px;
+        flex-shrink: 0;
+      }
+      .catalog-main {
+        flex: 1;
+      }
+      @media (max-width: 768px) {
+        .catalog-layout {
+          flex-direction: column;
+        }
+        .catalog-sidebar {
+          width: 100%;
+        }
+      }
+    </style>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="header" id="main-header" data-testid="main-header"></header>
+
+    <main id="main-content" data-testid="main-content">
+      <h1 data-testid="catalog-title" style="margin-bottom: var(--spacing-lg)">
+        Catálogo de Produtos
+      </h1>
+
+      <div class="catalog-layout">
+        <aside
+          class="catalog-sidebar card"
+          style="padding: var(--spacing-md)"
+          data-testid="catalog-filters"
+        >
+          <h3
+            style="margin-bottom: var(--spacing-md)"
+            data-testid="filters-title"
+          >
+            Filtros
+          </h3>
+
+          <div class="form-group">
+            <label
+              for="filter-search"
+              class="form-label"
+              data-testid="filter-search-label"
+              >Busca</label
+            >
+            <input
+              type="text"
+              id="filter-search"
+              class="form-control"
+              data-testid="filter-search"
+              placeholder="Nome do produto..."
+            />
+          </div>
+
+          <div class="form-group">
+            <label
+              for="filter-category"
+              class="form-label"
+              data-testid="filter-category-label"
+              >Categoria</label
+            >
+            <select
+              id="filter-category"
+              class="form-control"
+              data-testid="filter-category"
+            >
+              <option value="">Todas</option>
+              <option value="Camisas">Camisas</option>
+              <option value="Calças">Calças</option>
+              <option value="Shorts e Bermudas">Shorts e Bermudas</option>
+              <option value="Acessórios">Acessórios</option>
+              <option value="Calçados">Calçados</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label
+              for="sort-price"
+              class="form-label"
+              data-testid="sort-price-label"
+              >Ordenar</label
+            >
+            <select
+              id="sort-price"
+              class="form-control"
+              data-testid="sort-price"
+            >
+              <option value="">Relevância</option>
+              <option value="asc">Menor Preço</option>
+              <option value="desc">Maior Preço</option>
+            </select>
+          </div>
+        </aside>
+
+        <section class="catalog-main">
+          <div
+            id="product-list"
+            class="grid grid--cols-3"
+            data-testid="product-list"
+          >
+            <!-- Produtos injetados pelo catalog.js -->
+          </div>
+          <div
+            id="no-products-message"
+            data-testid="no-products-message"
+            style="
+              display: none;
+              text-align: center;
+              padding: var(--spacing-xl);
+            "
+          >
+            Nenhum produto encontrado.
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer" id="main-footer" data-testid="main-footer"></footer>
+
+    <script type="module" src="js/utils/storage.js"></script>
+    <script type="module" src="js/components/header.js"></script>
+    <script type="module" src="js/components/footer.js"></script>
+    <script type="module" src="js/pages/catalog.js"></script>
+  </body>
+</html>

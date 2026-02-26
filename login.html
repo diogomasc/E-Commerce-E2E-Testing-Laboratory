@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E-commerce E2E - Login</title>
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/components.css" />
+  
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+</head>
+  <body>
+    <header class="header" id="main-header" data-testid="main-header"></header>
+
+    <main id="main-content" data-testid="main-content">
+      <div
+        class="card"
+        style="max-width: 400px; margin: 40px auto; padding: var(--spacing-lg)"
+      >
+        <h1
+          data-testid="login-title"
+          style="margin-bottom: var(--spacing-md); text-align: center"
+        >
+          Login
+        </h1>
+        <form id="login-form" data-testid="login-form">
+          <div class="form-group">
+            <label
+              for="login-email"
+              class="form-label"
+              data-testid="login-email-label"
+              >E-mail</label
+            >
+            <input
+              type="email"
+              id="login-email"
+              class="form-control"
+              data-testid="login-email"
+              required
+            />
+            <span
+              class="form-error"
+              id="login-email-error"
+              data-testid="login-email-error"
+              >E-mail inválido</span
+            >
+          </div>
+          <div class="form-group">
+            <label
+              for="login-password"
+              class="form-label"
+              data-testid="login-password-label"
+              >Senha</label
+            >
+            <input
+              type="password"
+              id="login-password"
+              class="form-control"
+              data-testid="login-password"
+              required
+            />
+            <span
+              class="form-error"
+              id="login-password-error"
+              data-testid="login-password-error"
+              >Senha obrigatória</span
+            >
+          </div>
+          <button
+            type="submit"
+            id="login-submit"
+            class="btn btn--primary"
+            style="width: 100%"
+            data-testid="login-submit"
+          >
+            Entrar
+          </button>
+        </form>
+        <p style="text-align: center; margin-top: var(--spacing-md)">
+          Não tem conta?
+          <a
+            href="register.html"
+            data-testid="register-link"
+            style="color: var(--color-primary)"
+            >Cadastre-se</a
+          >
+        </p>
+      </div>
+    </main>
+
+    <footer class="footer" id="main-footer" data-testid="main-footer"></footer>
+
+    <script type="module" src="js/utils/storage.js"></script>
+    <script type="module" src="js/components/header.js"></script>
+    <script type="module" src="js/components/footer.js"></script>
+    <script type="module" src="js/pages/login.js"></script>
+  </body>
+</html>

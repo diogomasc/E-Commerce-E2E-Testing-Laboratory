@@ -1,0 +1,20 @@
+/* css/pages/home.css */
+.hero {
+  text-align: center;
+  padding: 6rem 1rem; /* Aumenta o espaço do texto para o header e botão */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: 1.25rem;
+  margin-bottom: 3rem; /* Espaço para o botão */
+  color: var(--color-text-light);
+}

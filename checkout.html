@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E-commerce E2E - Checkout</title>
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <style>
+      .checkout-layout {
+        display: flex;
+        flex-direction: column-reverse;
+        gap: var(--spacing-xl);
+      }
+      @media (min-width: 768px) {
+        .checkout-layout {
+          flex-direction: row;
+        }
+        .checkout-form-container {
+          flex: 2;
+        }
+        .checkout-summary {
+          flex: 1;
+        }
+      }
+      .section-title {
+        margin-bottom: var(--spacing-md);
+        padding-bottom: var(--spacing-sm);
+        border-bottom: 1px solid var(--color-border);
+      }
+    </style>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="header" id="main-header" data-testid="main-header"></header>
+
+    <main id="main-content" data-testid="main-content">
+      <h1 data-testid="checkout-title" style="margin-bottom: var(--spacing-lg)">
+        Checkout
+      </h1>
+
+      <div class="checkout-layout">
+        <div class="checkout-form-container">
+          <form id="checkout-form" data-testid="checkout-form">
+            <div
+              class="card"
+              style="
+                padding: var(--spacing-lg);
+                margin-bottom: var(--spacing-lg);
+              "
+            >
+              <h2 class="section-title" data-testid="personal-info-title">
+                Dados Pessoais
+              </h2>
+              <div class="grid grid--cols-2">
+                <div class="form-group">
+                  <label
+                    for="checkout-firstname"
+                    class="form-label"
+                    data-testid="checkout-firstname-label"
+                    >Nome</label
+                  >
+                  <input
+                    type="text"
+                    id="checkout-firstname"
+                    class="form-control"
+                    data-testid="checkout-firstname"
+                    required
+                  />
+                  <span
+                    class="form-error"
+                    data-testid="checkout-firstname-error"
+                    >Campo obrigatório</span
+                  >
+                </div>
+                <div class="form-group">
+                  <label
+                    for="checkout-lastname"
+                    class="form-label"
+                    data-testid="checkout-lastname-label"
+                    >Sobrenome</label
+                  >
+                  <input
+                    type="text"
+                    id="checkout-lastname"
+                    class="form-control"
+                    data-testid="checkout-lastname"
+                    required
+                  />
+                  <span class="form-error" data-testid="checkout-lastname-error"
+                    >Campo obrigatório</span
+                  >
+                </div>
+              </div>
+              <div class="grid grid--cols-2">
+                <div class="form-group">
+                  <label
+                    for="checkout-email"
+                    class="form-label"
+                    data-testid="checkout-email-label"
+                    >E-mail</label
+                  >
+                  <input
+                    type="email"
+                    id="checkout-email"
+                    class="form-control"
+                    data-testid="checkout-email"
+                    required
+                  />
+                  <span class="form-error" data-testid="checkout-email-error"
+                    >E-mail inválido</span
+                  >
+                </div>
+                <div class="form-group">
+                  <label
+                    for="checkout-cpf"
+                    class="form-label"
+                    data-testid="checkout-cpf-label"
+                    >CPF</label
+                  >
+                  <input
+                    type="text"
+                    id="checkout-cpf"
+                    class="form-control"
+                    data-testid="checkout-cpf"
+                    placeholder="000.000.000-00"
+                    maxlength="14"
+                    required
+                  />
+                  <span class="form-error" data-testid="checkout-cpf-error"
+                    >CPF inválido</span
+                  >
+                </div>
+              </div>
+              <div class="form-group">
+                <label
+                  for="checkout-phone"
+                  class="form-label"
+                  data-testid="checkout-phone-label"
+                  >Telefone (opcional)</label
+                >
+                <input
+                  type="text"
+                  id="checkout-phone"
+                  class="form-control"
+                  data-testid="checkout-phone"
+                  placeholder="(00) 00000-0000"
+                  maxlength="15"
+                />
+              </div>
+            </div>
+
+            <div
+              class="card"
+              style="
+                padding: var(--spacing-lg);
+                margin-bottom: var(--spacing-lg);
+              "
+            >
+              <h2 class="section-title" data-testid="address-info-title">
+                Endereço de Entrega
+              </h2>
+              <div class="grid grid--cols-2">
+                <div class="form-group">
+                  <label
+                    for="checkout-cep"
+                    class="form-label"
+                    data-testid="checkout-cep-label"
+                    >CEP</label
+                  >
+                  <input
+                    type="text"
+                    id="checkout-cep"
+                    class="form-control"
+                    data-testid="checkout-cep"
+                    placeholder="00000-000"
+                    maxlength="9"
+                    required
+                  />
+                  <span class="form-error" data-testid="checkout-cep-error"
+                    >CEP obrigatório</span
+                  >
+                </div>
+                <div class="form-group">
+                  <label
+                    for="checkout-address"
+                    class="form-label"
+                    data-testid="checkout-address-label"
+                    >Rua</label
+                  >
+                  <input
+                    type="text"
+                    id="checkout-address"
+                    class="form-control"
+                    data-testid="checkout-address"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="grid grid--cols-2">
+                <div class="form-group">
+                  <label
+                    for="checkout-city"
+                    class="form-label"
+                    data-testid="checkout-city-label"
+                    >Cidade</label
+                  >
+                  <input
+                    type="text"
+                    id="checkout-city"
+                    class="form-control"
+                    data-testid="checkout-city"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label
+                    for="checkout-state"
+                    class="form-label"
+                    data-testid="checkout-state-label"
+                    >Estado</label
+                  >
+                  <input
+                    type="text"
+                    id="checkout-state"
+                    class="form-control"
+                    data-testid="checkout-state"
+                    maxlength="2"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <label
+                  for="checkout-complement"
+                  class="form-label"
+                  data-testid="checkout-complement-label"
+                  >Complemento</label
+                >
+                <textarea
+                  id="checkout-complement"
+                  class="form-control"
+                  data-testid="checkout-complement"
+                  rows="2"
+                  maxlength="255"
+                  style="resize: vertical; min-height: 46px; max-height: 116px"
+                ></textarea>
+              </div>
+            </div>
+
+            <div class="card" style="padding: var(--spacing-lg)">
+              <h2 class="section-title" data-testid="payment-info-title">
+                Pagamento
+              </h2>
+              <div class="form-group">
+                <label
+                  for="checkout-card-name"
+                  class="form-label"
+                  data-testid="checkout-card-name-label"
+                  >Nome no Cartão</label
+                >
+                <input
+                  type="text"
+                  id="checkout-card-name"
+                  class="form-control"
+                  data-testid="checkout-card-name"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label
+                  for="checkout-card-number"
+                  class="form-label"
+                  data-testid="checkout-card-number-label"
+                  >Número do Cartão</label
+                >
+                <input
+                  type="text"
+                  id="checkout-card-number"
+                  class="form-control"
+                  data-testid="checkout-card-number"
+                  placeholder="0000 0000 0000 0000"
+                  maxlength="19"
+                  required
+                />
+              </div>
+              <div class="grid grid--cols-2">
+                <div class="form-group">
+                  <label
+                    for="checkout-card-expiry"
+                    class="form-label"
+                    data-testid="checkout-card-expiry-label"
+                    >Validade</label
+                  >
+                  <input
+                    type="text"
+                    id="checkout-card-expiry"
+                    class="form-control"
+                    data-testid="checkout-card-expiry"
+                    placeholder="MM/AA"
+                    maxlength="5"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label
+                    for="checkout-card-cvv"
+                    class="form-label"
+                    data-testid="checkout-card-cvv-label"
+                    >CVV</label
+                  >
+                  <input
+                    type="password"
+                    id="checkout-card-cvv"
+                    class="form-control"
+                    data-testid="checkout-card-cvv"
+                    placeholder="123"
+                    maxlength="4"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              id="checkout-submit"
+              class="btn btn--primary"
+              style="
+                width: 100%;
+                margin-top: var(--spacing-lg);
+                padding: var(--spacing-md);
+                font-size: var(--font-size-lg);
+              "
+              data-testid="checkout-submit"
+            >
+              Confirmar Pedido
+            </button>
+          </form>
+        </div>
+
+        <aside
+          class="checkout-summary card"
+          style="padding: var(--spacing-lg); height: fit-content"
+        >
+          <h3
+            style="margin-bottom: var(--spacing-md)"
+            data-testid="checkout-summary-title"
+          >
+            Recibo
+          </h3>
+          <div
+            id="checkout-items-list"
+            data-testid="checkout-items-list"
+            style="
+              margin-bottom: var(--spacing-md);
+              max-height: 250px;
+              overflow-y: auto;
+            "
+          >
+            <!-- Itens injetados pelo checkout.js -->
+          </div>
+          <hr
+            style="
+              margin: var(--spacing-sm) 0;
+              border: none;
+              border-top: 1px solid var(--color-border);
+            "
+          />
+
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              margin-bottom: var(--spacing-xs);
+            "
+          >
+            <span>Subtotal:</span>
+            <span id="checkout-subtotal" data-testid="checkout-subtotal"
+              >R$ 0,00</span
+            >
+          </div>
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              margin-bottom: var(--spacing-xs);
+              color: var(--color-success);
+            "
+          >
+            <span>Desconto:</span>
+            <span id="checkout-discount" data-testid="checkout-discount"
+              >R$ 0,00</span
+            >
+          </div>
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              margin-top: var(--spacing-md);
+              font-weight: bold;
+              font-size: var(--font-size-lg);
+            "
+          >
+            <span>Total:</span>
+            <span id="checkout-total" data-testid="checkout-total"
+              >R$ 0,00</span
+            >
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <footer class="footer" id="main-footer" data-testid="main-footer"></footer>
+
+    <script type="module" src="js/utils/storage.js"></script>
+    <script type="module" src="js/components/header.js"></script>
+    <script type="module" src="js/components/footer.js"></script>
+    <script type="module" src="js/pages/checkout.js"></script>
+  </body>
+</html>

@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E-commerce E2E - Registrar</title>
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/components.css" />
+  
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+</head>
+  <body>
+    <header class="header" id="main-header" data-testid="main-header"></header>
+
+    <main id="main-content" data-testid="main-content">
+      <div
+        class="card"
+        style="max-width: 500px; margin: 40px auto; padding: var(--spacing-lg)"
+      >
+        <h1
+          data-testid="register-title"
+          style="margin-bottom: var(--spacing-md); text-align: center"
+        >
+          Criar Conta
+        </h1>
+        <form id="register-form" data-testid="register-form">
+          <div class="grid grid--cols-2">
+            <div class="form-group">
+              <label
+                for="register-firstname"
+                class="form-label"
+                data-testid="register-firstname-label"
+                >Nome</label
+              >
+              <input
+                type="text"
+                id="register-firstname"
+                class="form-control"
+                data-testid="register-firstname"
+                minlength="2"
+                maxlength="30"
+                required
+              />
+              <span
+                class="form-error"
+                id="register-firstname-error"
+                data-testid="register-firstname-error"
+                >Mínimo 2 caracteres</span
+              >
+            </div>
+            <div class="form-group">
+              <label
+                for="register-lastname"
+                class="form-label"
+                data-testid="register-lastname-label"
+                >Sobrenome</label
+              >
+              <input
+                type="text"
+                id="register-lastname"
+                class="form-control"
+                data-testid="register-lastname"
+                minlength="2"
+                maxlength="30"
+                required
+              />
+              <span
+                class="form-error"
+                id="register-lastname-error"
+                data-testid="register-lastname-error"
+                >Mínimo 2 caracteres</span
+              >
+            </div>
+          </div>
+          <div class="form-group">
+            <label
+              for="register-email"
+              class="form-label"
+              data-testid="register-email-label"
+              >E-mail</label
+            >
+            <input
+              type="email"
+              id="register-email"
+              class="form-control"
+              data-testid="register-email"
+              required
+            />
+            <span
+              class="form-error"
+              id="register-email-error"
+              data-testid="register-email-error"
+              >E-mail inválido</span
+            >
+          </div>
+          <div class="form-group">
+            <label
+              for="register-password"
+              class="form-label"
+              data-testid="register-password-label"
+              >Senha</label
+            >
+            <input
+              type="password"
+              id="register-password"
+              class="form-control"
+              data-testid="register-password"
+              required
+            />
+            <span
+              class="form-error"
+              id="register-password-error"
+              data-testid="register-password-error"
+              >Senha é obrigatória</span
+            >
+          </div>
+          <div class="form-group">
+            <label
+              for="register-confirm-password"
+              class="form-label"
+              data-testid="register-confirm-password-label"
+              >Confirmar Senha</label
+            >
+            <input
+              type="password"
+              id="register-confirm-password"
+              class="form-control"
+              data-testid="register-confirm-password"
+              required
+            />
+            <span
+              class="form-error"
+              id="register-confirm-password-error"
+              data-testid="register-confirm-password-error"
+              >Senhas não conferem</span
+            >
+          </div>
+          <button
+            type="submit"
+            id="register-submit"
+            class="btn btn--primary"
+            style="width: 100%"
+            data-testid="register-submit"
+          >
+            Cadastrar
+          </button>
+        </form>
+        <p style="text-align: center; margin-top: var(--spacing-md)">
+          Já tem uma conta?
+          <a
+            href="login.html"
+            data-testid="login-link"
+            style="color: var(--color-primary)"
+            >Entrar</a
+          >
+        </p>
+      </div>
+    </main>
+
+    <footer class="footer" id="main-footer" data-testid="main-footer"></footer>
+
+    <script type="module" src="js/utils/storage.js"></script>
+    <script type="module" src="js/components/header.js"></script>
+    <script type="module" src="js/components/footer.js"></script>
+    <script type="module" src="js/pages/register.js"></script>
+  </body>
+</html>

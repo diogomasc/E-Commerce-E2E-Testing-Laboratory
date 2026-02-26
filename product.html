@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E-commerce E2E - Produto</title>
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <style>
+      .product-layout {
+        display: grid;
+        gap: var(--spacing-xl);
+        grid-template-columns: 1fr;
+      }
+      @media (min-width: 768px) {
+        .product-layout {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      .product-image {
+        width: 100%;
+        height: auto;
+        border-radius: var(--border-radius-lg);
+        object-fit: cover;
+      }
+      .product-gallery {
+        display: flex;
+        gap: var(--spacing-sm);
+        margin-top: var(--spacing-sm);
+      }
+      .product-gallery img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: var(--border-radius-md);
+        cursor: pointer;
+        border: 2px solid transparent;
+      }
+      .product-gallery img.active {
+        border-color: var(--color-primary);
+      }
+    </style>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="header" id="main-header" data-testid="main-header"></header>
+
+    <main id="main-content" data-testid="main-content">
+      <div
+        id="product-container"
+        class="product-layout"
+        data-testid="product-container"
+      >
+        <!-- Detalhes do produto injetados pelo product.js -->
+      </div>
+      <div
+        id="product-error"
+        data-testid="product-error"
+        style="display: none; text-align: center; padding: var(--spacing-xl)"
+      >
+        Produto não encontrado.
+      </div>
+    </main>
+
+    <footer class="footer" id="main-footer" data-testid="main-footer"></footer>
+
+    <script type="module" src="js/utils/storage.js"></script>
+    <script type="module" src="js/components/header.js"></script>
+    <script type="module" src="js/components/footer.js"></script>
+    <script type="module" src="js/pages/product.js"></script>
+  </body>
+</html>

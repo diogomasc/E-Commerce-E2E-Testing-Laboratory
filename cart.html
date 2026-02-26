@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E-commerce E2E - Carrinho</title>
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <style>
+      .cart-layout {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-lg);
+      }
+      @media (min-width: 768px) {
+        .cart-layout {
+          flex-direction: row;
+        }
+        .cart-items-container {
+          flex: 2;
+        }
+        .cart-summary {
+          flex: 1;
+        }
+      }
+      .cart-item {
+        display: flex;
+        align-items: center;
+        padding: var(--spacing-md);
+        border-bottom: 1px solid var(--color-border);
+        gap: var(--spacing-md);
+      }
+      .cart-item img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: var(--border-radius-md);
+      }
+      .cart-item-details {
+        flex: 1;
+      }
+    </style>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="header" id="main-header" data-testid="main-header"></header>
+
+    <main id="main-content" data-testid="main-content">
+      <h1 data-testid="cart-title" style="margin-bottom: var(--spacing-lg)">
+        Meu Carrinho
+      </h1>
+
+      <div class="cart-layout" id="cart-container" data-testid="cart-container">
+        <div class="cart-items-container card">
+          <div id="cart-items-list" data-testid="cart-items-list">
+            <!-- Itens injetados pelo cart.js -->
+          </div>
+          <div
+            id="cart-empty-message"
+            data-testid="cart-empty-message"
+            style="
+              display: none;
+              padding: var(--spacing-xl);
+              text-align: center;
+            "
+          >
+            Seu carrinho está vazio.
+          </div>
+        </div>
+
+        <aside class="cart-summary card" style="padding: var(--spacing-lg)">
+          <h3
+            style="margin-bottom: var(--spacing-md)"
+            data-testid="cart-summary-title"
+          >
+            Resumo do Pedido
+          </h3>
+
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              margin-bottom: var(--spacing-sm);
+            "
+          >
+            <span data-testid="cart-subtotal-label">Subtotal:</span>
+            <span id="cart-subtotal" data-testid="cart-subtotal">R$ 0,00</span>
+          </div>
+
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              margin-bottom: var(--spacing-sm);
+              color: var(--color-success);
+            "
+          >
+            <span data-testid="cart-discount-label">Desconto:</span>
+            <span id="cart-discount" data-testid="cart-discount">R$ 0,00</span>
+          </div>
+
+          <hr
+            style="
+              margin: var(--spacing-md) 0;
+              border: none;
+              border-top: 1px solid var(--color-border);
+            "
+          />
+
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              margin-bottom: var(--spacing-lg);
+              font-weight: bold;
+              font-size: var(--font-size-lg);
+            "
+          >
+            <span data-testid="cart-total-label">Total:</span>
+            <span id="cart-total" data-testid="cart-total">R$ 0,00</span>
+          </div>
+
+          <div class="form-group">
+            <label
+              for="cart-coupon"
+              class="form-label"
+              data-testid="cart-coupon-label"
+              >Cupom de Desconto</label
+            >
+            <div style="display: flex; gap: var(--spacing-sm)">
+              <input
+                type="text"
+                id="cart-coupon"
+                class="form-control"
+                data-testid="cart-coupon"
+                placeholder="Código"
+              />
+              <button
+                type="button"
+                id="apply-coupon-btn"
+                class="btn btn--outline"
+                data-testid="apply-coupon-btn"
+              >
+                Aplicar
+              </button>
+            </div>
+            <span
+              id="coupon-message"
+              class="form-error"
+              data-testid="coupon-message"
+              style="display: none; margin-top: var(--spacing-xs)"
+            ></span>
+          </div>
+
+          <div
+            class="form-group"
+            style="margin-top: var(--spacing-md); max-height: 350px"
+          >
+            <label
+              for="cart-observation"
+              class="form-label"
+              data-testid="cart-observation-label"
+              >Observações</label
+            >
+            <textarea
+              id="cart-observation"
+              class="form-control"
+              data-testid="cart-observation"
+              rows="3"
+              placeholder="Instruções especiais..."
+              maxlength="512"
+              style="resize: vertical; min-height: 80px"
+            ></textarea>
+          </div>
+
+          <button
+            id="checkout-btn"
+            class="btn btn--primary"
+            style="width: 100%; margin-top: var(--spacing-md)"
+            data-testid="checkout-btn"
+            disabled
+          >
+            Finalizar Compra
+          </button>
+        </aside>
+      </div>
+    </main>
+
+    <footer class="footer" id="main-footer" data-testid="main-footer"></footer>
+
+    <script type="module" src="js/utils/storage.js"></script>
+    <script type="module" src="js/components/header.js"></script>
+    <script type="module" src="js/components/footer.js"></script>
+    <script type="module" src="js/pages/cart.js"></script>
+  </body>
+</html>

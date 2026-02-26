@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E-commerce E2E - Compra Finalizada</title>
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/components.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="header" id="main-header" data-testid="main-header"></header>
+
+    <main id="main-content" data-testid="main-content">
+      <div
+        class="card"
+        style="
+          max-width: 600px;
+          margin: 40px auto;
+          padding: var(--spacing-xl);
+          text-align: center;
+        "
+      >
+        <div
+          style="
+            color: var(--color-success);
+            font-size: 4rem;
+            margin-bottom: var(--spacing-md);
+          "
+          data-testid="success-icon"
+        >
+          ✓
+        </div>
+        <h1
+          data-testid="success-title"
+          style="margin-bottom: var(--spacing-sm)"
+        >
+          Compra Finalizada com Sucesso!
+        </h1>
+        <p
+          data-testid="success-message"
+          style="
+            margin-bottom: var(--spacing-lg);
+            color: var(--color-text-light);
+          "
+        >
+          Obrigado pela sua compra. Seu pedido
+          <strong id="success-order-id" data-testid="success-order-id"></strong>
+          foi processado.
+        </p>
+
+        <div
+          style="
+            background-color: var(--color-background);
+            padding: var(--spacing-md);
+            border-radius: var(--border-radius-md);
+            text-align: left;
+            margin-bottom: var(--spacing-xl);
+          "
+        >
+          <h3
+            style="
+              margin-bottom: var(--spacing-sm);
+              border-bottom: 1px solid var(--color-border);
+              padding-bottom: var(--spacing-xs);
+            "
+            data-testid="success-summary-title"
+          >
+            Resumo do Pedido
+          </h3>
+
+          <ul
+            id="success-items-list"
+            data-testid="success-items-list"
+            style="margin-bottom: var(--spacing-md)"
+          >
+            <!-- Injetado pelo success.js -->
+          </ul>
+
+          <hr
+            style="
+              margin: var(--spacing-sm) 0;
+              border: none;
+              border-top: 1px dashed var(--color-border);
+            "
+          />
+
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              font-weight: bold;
+              font-size: var(--font-size-lg);
+            "
+          >
+            <span>Total Pago:</span>
+            <span id="success-total" data-testid="success-total">R$ 0,00</span>
+          </div>
+        </div>
+
+        <a
+          href="index.html"
+          class="btn btn--primary"
+          data-testid="back-to-home-btn"
+          >Voltar à Página Inicial</a
+        >
+      </div>
+    </main>
+
+    <footer class="footer" id="main-footer" data-testid="main-footer"></footer>
+
+    <script type="module" src="js/utils/storage.js"></script>
+    <script type="module" src="js/components/header.js"></script>
+    <script type="module" src="js/components/footer.js"></script>
+    <script type="module" src="js/pages/success.js"></script>
+  </body>
+</html>

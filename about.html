@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E-commerce E2E - Sobre</title>
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="header" id="main-header" data-testid="main-header"></header>
+
+    <main id="main-content" data-testid="main-content">
+      <h1 data-testid="about-title" style="margin-bottom: var(--spacing-lg)">
+        Sobre Nós
+      </h1>
+      <div class="card" style="padding: var(--spacing-xl)">
+        <p style="margin-bottom: var(--spacing-md)" data-testid="about-text-1">
+          Este é um projeto construído unicamente com HTML, CSS e Vanilla
+          JavaScript.
+        </p>
+        <p data-testid="about-text-2">
+          O objetivo principal é servir como um ambiente laboratorial altamente
+          determinístico para testes End-to-End.
+        </p>
+      </div>
+    </main>
+
+    <footer class="footer" id="main-footer" data-testid="main-footer"></footer>
+    <script type="module" src="js/utils/storage.js"></script>
+    <script type="module" src="js/components/header.js"></script>
+    <script type="module" src="js/components/footer.js"></script>
+  </body>
+</html>
