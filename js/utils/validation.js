@@ -15,8 +15,8 @@ export const validation = {
     isValidCPF: (cpf) => {
         cpf = cpf.replace(/[^\d]+/g, '');
         if (cpf === '' || cpf.length !== 11) return false;
-        // Verificacao basica para propósitos E2E, pode ser mais rigorosa se necessario
-        return !/^(\d)\1{10}$/.test(cpf);
+        // BUG INTENCIONAL PARA E2E: Removida a validacao que bloqueia CPFs com numeros repetidos (ex: 111.111.111-11)
+        return true;
     },
 
     isValidCEP: (cep) => {
