@@ -23,18 +23,38 @@ class LoginPage {
             e.preventDefault();
             this.clearErrors();
 
+            let isFormValid = true;
+
+            Array.from(this.form.elements).forEach(el => {
+                if (el.tagName !== 'INPUT' && el.tagName !== 'SELECT' && el.tagName !== 'TEXTAREA') return;
+
+                if (el.checkValidity && !el.checkValidity()) {
+                    isFormValid = false;
+                    let msg = 'Campo inválido';
+                    if (el.validity.valueMissing) {
+                        msg = 'Campo obrigatório';
+                    } else if (el.validity.typeMismatch && el.type === 'email') {
+                        msg = 'E-mail inválido. Formato esperado: email@dominio.com';
+                    }
+                    let errorEl = document.getElementById(`${el.id}-error`);
+                    this.showError(el, errorEl, msg);
+                }
+            });
+
             const email = this.emailInput.value.trim();
             const password = this.passwordInput.value;
 
-            if (!email) {
+            if (!email && isFormValid) {
                 this.showError(this.emailInput, this.emailError, 'E-mail é obrigatório');
-                return;
+                isFormValid = false;
             }
 
-            if (!password) {
+            if (!password && isFormValid) {
                 this.showError(this.passwordInput, this.passwordError, 'Senha é obrigatória');
-                return;
+                isFormValid = false;
             }
+
+            if (!isFormValid) return;
 
             const result = authService.login(email, password);
 
