@@ -1,62 +1,117 @@
 # E-Commerce E2E Testing Laboratory 🛒
 
-Bem-vindo ao repositório do **E-commerce E2E Test**, uma aplicação puramente desenvolvida em **Vanilla JavaScript** (ES6+), **HTML5** e **CSS3**, focada em servir como ambiente base, limpo e determinístico para testes End-to-End (E2E) com frameworks como Cypress, Playwright, ou Selenium.
+Bem-vindo ao repositório do **E-commerce E2E Test**, uma aplicação puramente desenvolvida em **Vanilla JavaScript** (ES6+), **HTML5** e **CSS3**, focada em servir como ambiente base, limpo e determinístico para testes End-to-End (E2E) com frameworks como Cypress, Playwright ou Selenium.
 
-O maior objetivo desse projeto é simular os cenários do mundo real de uma loja, sem a complexidade ou instabilidade de ambientes servidos por API, utilizando estritamente o `LocalStorage` do navegador para controle de estado, persistência de banco de dados e mutações.
+O maior objetivo desse projeto é simular os cenários do mundo real de uma loja, sem a complexidade ou instabilidade de ambientes servidos por API, utilizando estritamente o `LocalStorage` do navegador e Data Mocks para controle de estado, persistência de banco de dados e mutações.
+
+---
+
+## 🎯 Escopo e Proposta do Projeto (Curiosidades)
+
+Apesar de ser um e-commerce aparentemente funcional de ponta a ponta, é crucial entender as limitações intencionais da arquitetura:
+
+- **Não há Backend real:** Não existem APIs para autenticação ou persistência de banco de dados (`fetch` ou `axios` não são utilizados).
+- **Dados Mockados (`js/data/`)**: A listagem de produtos, catálogos e usuários padrão vêm de arquivos estáticos no repositório. O "Banco de Dados" vive na memória do seu front-end durante a execução.
+- **Persistência de Sessão:** Toda mutação (Adicionar ao carrinho, Criar pedido novo, Mudar perfil) é salva na API de Web Storage do navegador, especificamente o **LocalStorage**.
+- **Ideal para UI Automation:** Testadores não precisam mockar respostas HTTP complexas. Toda manipulação se foca estritamente no ecossistema e estado do navegador (UI Testing puro).
 
 ---
 
 ## 🛠 Entendendo as Tecnologias
 
-- **Nenhum Framework:** Ausência completa de React, Vue, Angular, jQuery ou bibliotecas de UI/CSS como Bootstrap/Tailwind.
-- **Armazenamento:** Persistência no **LocalStorage** (`e2e_cart`, `e2e_users`, `e2e_orders`, `e2e_current_user`).
-- **Arquitetura Base:** Todos os scripts são controlados baseados em ES6 Modules (`type="module"`), possibilitando o reuso de utilitários como formatadores e validadores através de _imports_.
-- **Testes Mapeados:** Interface massivamente anotada com a propriedade `data-testid="X"` para robustez durante automações de E2E.
+- **Nenhum Framework Frontend:** Ausência completa de bibliotecas como React, Vue, jQuery ou TailwindCSS. Apenas as camadas puras da Web.
+- **Armazenamento Local:** As chaves principais utilizadas para testar estados no Storage são:
+  - `e2e_cart`: Controle de itens do carrinho ativo.
+  - `e2e_users`: Histórico de contas criadas artificialmente local.
+  - `e2e_orders`: Base de dados dos pedidos finalizados.
+  - `e2e_current_user`: Status da sessão do login atual.
+- **Testes Mapeados:** A Interface Gráfica é massivamente anotada com atributos `data-testid="X"`, garantindo seletores resilientes e à prova de refatorações de design.
+
+---
+
+## 💡 Como testar o LocalStorage no Cypress?
+
+Testar aplicações baseadas no Vanilla JS exigem que você domine o estado de armazenamento do navegador.
+Como o LocalStorage persiste os dados mesmo após recarregamentos da página, o **Cypress** intencionalmente o limpa **entre cada teste (`it`)** para garantir que cada cenário seja independente e sem poluições de estados anteriores.
+
+Embora o Cypress forneça o comando `cy.clearLocalStorage()`, ele não possui um `cy.getLocalStorage()` nativo. Por isso, utilizamos o `cy.window()` para acessar a API nativa do navegador ou criamos nossos próprios Custom Commands.
+
+Portanto, em cenários onde precisamos manter um usuário logado ("hydrated") ou analisar um estado gerado (ex: o preço total gerado após manipular o carrinho de compras), uma ótima estratégia é interagir fisicamente com a janela (Window) do browser local, da seguinte forma:
+
+```javascript
+// Exemplo prático validando o ID de um pedido recém-criado em um teste do Cypress
+describe("Finalização de Pedido", () => {
+  it("deve armazenar os dados do pedido recém criado corretamente", () => {
+    // 1. Simule e preencha as ações de sua UI ...
+    cy.get('[data-testid="checkout-submit"]').click();
+
+    // 2. Aguarde a interface reagir (Assincronismo)
+    // Dica de Ouro: Garanta que a ação de salvar no storage terminou esperando um elemento visual mudar antes de ler a API!
+    cy.url().should("include", "success.html");
+
+    // 3. Acesse as APIs da Web locais (window.localStorage)
+    cy.window().then((win) => {
+      // 4. Capture o storage (retorna string)
+      const storageOrdersRaw = win.localStorage.getItem("e2e_orders");
+
+      // 5. Converta e execute sua Asserção!
+      const orders = JSON.parse(storageOrdersRaw);
+      expect(orders).to.be.an("array").that.is.not.empty;
+
+      const lastOrder = orders[orders.length - 1];
+      expect(lastOrder).to.have.property("status", "processing");
+      expect(lastOrder).to.have.property("total");
+    });
+  });
+});
+```
+
+### Dicas para a Automação:
+
+1. **Refatoração (Custom Commands):** Para tornar o código mais limpo e legível dentro dos seus `it`s, você pode isolar a verbosidade em um comando customizado criando no seu `support/commands.js`:
+
+   ```javascript
+   Cypress.Commands.add("getLocalStorage", (key) => {
+     return cy.window().then((win) => {
+       return JSON.parse(win.localStorage.getItem(key));
+     });
+   });
+
+   // Uso no teste:
+   cy.getLocalStorage("e2e_orders").then((orders) => {
+     expect(orders).to.not.be.empty;
+   });
+   ```
+
+2. **Persistência entre Testes (Testes Longos):** Se for absolutamente necessário testar um fluxo sequencial contínuo (ex: `it` 1 faz login, `it` 2 adiciona item, `it` 3 paga), o Cypress vai limpar o Storage. Você pode contornar isso utilizando a abordagem oficial e moderna com [cy.session()](https://docs.cypress.io/api/commands/session) que guarda e restaura sessões. Outra vertente adotada pela comunidade é utilizar o plugin auxiliar [cypress-localstorage-commands](https://www.npmjs.com/package/cypress-localstorage-commands) injetando comandos vitais como `cy.saveLocalStorage()` e `cy.restoreLocalStorage()`.
+
+> **Dica de Leitura:** Para atender um pouco mais como ler e gerenciar o localStorage, recomendamos o artigo: [Como ler o localStorage com Cypress (Talking About Testing)](https://talkingabouttesting.com/2021/03/02/como-ler-o-localstorage-do-navegador-com-cypress/).
+
+> **Documentação Oficial do Cypress:** [docs.cypress.io](https://docs.cypress.io/app/get-started/why-cypress)
+
+### 🏃‍♂️ Executando seu Cypress:
+
+Lembre-se: Após mapear sua base, você pode assistir os testes ocorrendo ativamente através do comando `npx cypress open` ou rodá-los em modo invisível (headless) na sua esteira de CI/CD utilizando `npx cypress run`.
 
 ---
 
 ## 📂 Organização do Projeto
 
-A arquitetura do repositório foi segregada baseada no design modular MVC adaptado para Vanilla JS, permitindo que a injeção em tela seja desacoplada das regras de negócio (serviços).
+A arquitetura foi segregada baseada no design modular MVC, onde `js/services` atuam como "backend fake" para cada controle de tela:
 
 ```text
 /
-├── index.html        # Página inicial (Destaques da loja)
-├── catalog.html      # Catálogo de produtos com sistema de busca, ordem, e filtro.
-├── product.html      # Tela de detalhes de um item, galerias e seleção de variância.
-├── cart.html         # O carrinho de compras base, manipulador de quantitativos e cupom.
-├── checkout.html     # Formulário base de finalização preenchível com mascara JS auto.
-├── success.html      # Tela final provendo o histórico ou ID de sucesso do usuário.
-├── login.html        # Acesso do usuário por AuthService (simulado).
-├── register.html     # Criação de mocks de usuários com limitações estritas em inputs.
-├── profile.html      # Área do cliente logado gerando o resgate de ordens criadas.
-├── about.html        # Página estática para treino de testes em componentes visuais.
-├── css/              # Folhas de estilização (CSS Vanilla)
-│   ├── reset.css     # Hard reset de margens e padding adaptado globalmente.
-│   ├── variables.css # Design Tokens principais de Cores e Dimensionamentos.
-│   ├── layout.css    # Controle estrutural geral (Grid, main headers e footers).
-│   ├── components.css# Estilizações comuns atômicas (botoes, inputs, alertas).
-│   └── pages/        # Estilizações específicas relativas com o nome das páginas html.
-├── js/               # Lógica de Controle
-│   ├── components/   # Classes modulares Injetadas no DOM (Reusabilidade pura)
-│   │   ├── header.js # Menu Sanduiche, Navbar, Lógica de Search Global e Counters.
-│   │   ├── footer.js # Rodapé universal.
-│   │   └── product-card.js # Factory que injeta um grid card padrão em lista.
-│   ├── data/         # Repositório "Backend" em JS que populam o aplicativo.
+├── *.html            # Páginas estáticas atuando como View layer (index, cart, checkout...)
+├── css/              # Design System em CSS Puro Moderno (Variáveis e Resets)
+├── js/               # O Cérebro JS da Aplicação!
+│   ├── components/   # Injeções de construtores de DOM, modais e layouts padrão.
+│   ├── data/         # Onde seus objetos primários de testes ficam gerados.
 │   │   ├── products.js  # JSON dos produtos do sistema.
-│   │   ├── users.js     # Usuários default (massa pronta se necessário).
-│   │   └── coupons.js   # Regras de cupons de descontos injetáveis do Carrinho.
-│   ├── pages/        # Controladores únicos restritos às páginas homônimas. (Ex: cart.js)
-│   ├── services/     # Casos de uso e Lógica de negócio pesada, independente do HTML.
-│   │   ├── auth.service.js   # Valida localStorage, login e construtor de usuários.
-│   │   ├── cart.service.js   # Manipula descontos, adições e exclusões no array de cart.
-│   │   ├── order.service.js  # Conversor final Cart -> History -> Usuário e clear stage.
-│   │   └── product.service.js# Funções de retrieve, fetch single e filtragem de JSON.
-│   └── utils/        # Facades estáticas para apoio do projeto em larga escala.
-│       ├── format.js      # Formata datas, dinheiros de brutos para Locale PT-BR.
-│       ├── masks.js       # Processador em tempo real de Inputs (CEP, CPF, Telefone).
-│       ├── validation.js  # Checadores pragmáticos de string rules antes de injetar states.
-│       └── storage.js     # Classe Proxy facilitadora de getters e setters no navigator window.
+│   │   ├── users.js     # Massas de dados base para testar logins diretos.
+│   │   └── coupons.js   # Regras ativas de cupons na loja.
+│   ├── pages/        # Escopo estrito e Listeners HTML-specific (Ex: checkout.js só roda no checkout).
+│   ├── services/     # Casos de uso do software (Carrinho, Order, Auth). Manipula os Dados!
+│   └── utils/        # Facades de comodidade geral do código (Validadores e Parsing Format).
 ```
 
 ---
@@ -64,6 +119,10 @@ A arquitetura do repositório foi segregada baseada no design modular MVC adapta
 ## 🚀 Como Executar Localmente
 
 Não existe a necessidade de rodar processos no NodeJS ou instalação pelo npm. Esta é uma aplicação puramente estática, o que torna sua hospedagem muito fácil.
+
+Você pode acessá-la em produção através do GitHub Pages em: **[https://diogomasc.github.io/E-Commerce-E2E-Testing-Laboratory/](https://diogomasc.github.io/E-Commerce-E2E-Testing-Laboratory/)**
+
+**Para executar localmente:**
 
 1. Faça o clone ou localize o projeto no seu computador.
 2. É altamente recomendado utilizar um **Live Server** (extensão do VS Code ou servidor HTTP simples como o Web Server for Chrome ou npx http-server) devido às requisições de módulos ES6 `import/export`.
