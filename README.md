@@ -140,7 +140,7 @@ Se o propósito desta plataforma é a montagem de seu repositório de testes com
 
 Aproveite este projeto como seu playground seguro!
 
-### Prints
+### Prints (Pode estar levemente desatualizado)
 
 <img width="1920" height="1410" alt="image" src="https://github.com/user-attachments/assets/3ad299e5-c0e7-42bb-8120-5743472a0729" />
 <img width="1920" height="1396" alt="image" src="https://github.com/user-attachments/assets/b672d0b8-ccd5-4e8a-91d1-941b0724362e" />
