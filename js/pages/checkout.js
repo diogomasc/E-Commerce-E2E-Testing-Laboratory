@@ -185,14 +185,36 @@ class CheckoutPage {
             observation: sessionStorage.getItem('e2e_cart_obs') || ''
         };
 
-        const result = orderService.createOrder(checkoutData);
+        const total = format.currency(cartService.getTotal(this.cart));
+        const itemsList = this.cart.items.map(item => `<li>${item.quantity}x ${item.title}</li>`).join('');
 
-        if (result.success) {
-            sessionStorage.removeItem('e2e_cart_obs');
-            window.location.href = `success.html?orderId=${result.orderId}`;
-        } else {
-            alert('Erro ao processar pedido: ' + result.message);
-        }
+        import('../components/modal.js').then(({ modalService }) => {
+            modalService.show({
+                title: 'Confirmar Pedido',
+                body: `
+                    <p>Por favor, revise os dados antes de confirmar:</p>
+                    <ul style="margin: var(--spacing-sm) 0; padding-left: var(--spacing-md);">
+                        ${itemsList}
+                    </ul>
+                    <p><strong>Total:</strong> ${total}</p>
+                    <p><strong>Endereço de Entrega:</strong><br>
+                    ${checkoutData.address}, ${checkoutData.complement ? checkoutData.complement + ' - ' : ''}${checkoutData.city}/${checkoutData.state}<br>
+                    CEP: ${checkoutData.cep}</p>
+                `,
+                confirmText: 'Confirmar Compra',
+                cancelText: 'Revisar',
+                onConfirm: () => {
+                    const result = orderService.createOrder(checkoutData);
+
+                    if (result.success) {
+                        sessionStorage.removeItem('e2e_cart_obs');
+                        window.location.href = `success.html?orderId=${result.orderId}`;
+                    } else {
+                        alert('Erro ao processar pedido: ' + result.message);
+                    }
+                }
+            });
+        });
     }
 }
 

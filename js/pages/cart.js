@@ -88,7 +88,17 @@ class CartPage {
             } else if (btn.classList.contains('qt-plus')) {
                 cartService.updateQuantity(item.productId, item.size, item.color, item.quantity + 1);
             } else if (btn.classList.contains('remove-item')) {
-                cartService.removeItem(item.productId, item.size, item.color);
+                import('../components/modal.js').then(({ modalService }) => {
+                    modalService.show({
+                        title: 'Remover Item',
+                        body: `<p>Tem certeza que deseja remover <strong>${item.title}</strong> do carrinho?</p>`,
+                        confirmText: 'Sim, remover',
+                        cancelText: 'Cancelar',
+                        onConfirm: () => {
+                            cartService.removeItem(item.productId, item.size, item.color);
+                        }
+                    });
+                });
             }
         });
 
