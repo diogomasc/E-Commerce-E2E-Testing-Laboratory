@@ -79,7 +79,28 @@ class CheckoutPage {
             e.preventDefault();
             this.clearErrors();
 
-            if (this.validateForm()) {
+            let isFormValid = true;
+
+            Array.from(this.form.elements).forEach(el => {
+                if (el.tagName !== 'INPUT' && el.tagName !== 'SELECT' && el.tagName !== 'TEXTAREA') return;
+
+                if (el.checkValidity && !el.checkValidity()) {
+                    isFormValid = false;
+                    let msg = 'Campo inválido';
+                    if (el.validity.valueMissing) {
+                        msg = 'Campo obrigatório';
+                    } else if (el.validity.typeMismatch && el.type === 'email') {
+                        msg = 'E-mail inválido.';
+                    }
+                    this.showError(el.id, msg);
+                }
+            });
+
+            if (!this.validateForm()) {
+                isFormValid = false;
+            }
+
+            if (isFormValid) {
                 this.submitOrder();
             }
         });
@@ -96,7 +117,7 @@ class CheckoutPage {
         const cvv = document.getElementById('checkout-card-cvv');
 
         if (!validation.isEmail(email.value)) {
-            this.showError('checkout-email', 'E-mail inválido');
+            this.showError('checkout-email', 'E-mail inválido. Formato esperado: email@dominio.com');
             isValid = false;
         }
 
